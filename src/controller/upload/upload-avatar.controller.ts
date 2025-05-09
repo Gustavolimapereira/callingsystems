@@ -11,15 +11,15 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
 import { extname } from 'path' // ajuste conforme seu guard
 import { UsersService } from '../users/users.service'
-import { AuthGuard } from '@nestjs/passport'
 import { RequestWithUser } from 'src/@types/express'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 
-@Controller('upload')
+@Controller('upload-avatar')
 export class UploadAvatarController {
   constructor(private usersService: UsersService) {}
 
-  @Post('avatar')
-  @UseGuards(AuthGuard)
+  @Post()
+  @UseGuards(JwtAuthGuard) // Use o guard apropriado para autenticação
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
