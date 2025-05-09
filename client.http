@@ -28,7 +28,7 @@ Authorization: Bearer {{authToken}}
 
 {
 	"name": "Gustavo novo teste 3",
-	"email": "teste4@hotmail.com",
+	"email": "teste9@hotmail.com",
 	"password": "12345236",
 	"role": "supervisor"
 }
@@ -36,7 +36,7 @@ Authorization: Bearer {{authToken}}
 ###
 
 # @name update_account
-Put {{baseUrl}}/accounts/66a6f76a-23e1-45cf-bc73-5faa04c15df0
+Put {{baseUrl}}/accounts/a7fcb654-78a2-4efb-b83b-c778cf004f14
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 

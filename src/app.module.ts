@@ -6,7 +6,6 @@ import { UserModule } from './controller/users/user.module'
 import { AuthenticateModule } from './controller/authenticate/authenticate.module'
 import { join } from 'path'
 import { ServeStaticModule } from '@nestjs/serve-static'
-import { UploadModule } from './controller/upload/upload.module'
 
 @Module({
   imports: [
@@ -21,7 +20,6 @@ import { UploadModule } from './controller/upload/upload.module'
     AuthModule,
     AuthenticateModule,
     UserModule,
-    UploadModule,
   ],
   controllers: [],
 })
