@@ -14,24 +14,25 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
+  id           String @id @default(uuid())
   name         String
-  email        String   @unique
+  email        String @unique
   passwordHash String
 
-  role         Role
-  sectorId     String?  // Diretores não precisam de setor
-  //sector       Sector?  @relation(fields: [sectorId], references: [id])
+  role      Role
+  sectorId  String? // Diretores não precisam de setor
+  avatarUrl String?
 
+  //sector       Sector?  @relation(fields: [sectorId], references: [id])
   //tickets      Ticket[] @relation("CreatedTickets")
 
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Role {
   diretor
   supervisor
   colaborador
+  administrador
 }
-

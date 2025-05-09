@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common'
-import { PrismaService } from './prisma/prisma.service'
 import { envSchema } from './env'
 import { ConfigModule } from '@nestjs/config'
 import { AuthModule } from './auth/auth.module'
-import { AuthenticateController } from './controller/authenticate/authenticate.controller'
+import { UserModule } from './controller/users/user.module'
+import { AuthenticateModule } from './controller/authenticate/authenticate.module'
+import { join } from 'path'
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { UploadModule } from './controller/upload/upload.module'
 
 @Module({
   imports: [
@@ -11,9 +14,15 @@ import { AuthenticateController } from './controller/authenticate/authenticate.c
       validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
+    }),
     AuthModule,
+    AuthenticateModule,
+    UserModule,
+    UploadModule,
   ],
-  controllers: [AuthenticateController],
-  providers: [PrismaService],
+  controllers: [],
 })
 export class AppModule {}

@@ -40,9 +40,9 @@ export class AuthenticateController {
       throw new UnauthorizedException('Credenciais não encontradas.(user)')
     }
 
-    //const isPasswordValid = await compare(passwordHash, user.passwordHash)
+    const isPasswordValid = await compare(passwordHash, user.passwordHash)
 
-    if (passwordHash !== user.passwordHash) {
+    if (!isPasswordValid) {
       throw new UnauthorizedException('Credenciais não encontradas.(password)')
     }
 

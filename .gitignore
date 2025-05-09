@@ -6,6 +6,7 @@
 # adicionados ao projeto
 /data
 .env
+docker-compose.yml
 readme
 
 # Logs

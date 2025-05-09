@@ -1,0 +1,57 @@
+@baseUrl = http://localhost:3333
+@authToken = {{authenticate.response.body.access_token}}
+
+### AUTENTICAÇÃO
+
+# @name authenticate
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+	"email": "teste@hotmail.com",
+	"passwordHash": "12345236"
+}
+
+### CRUD DE USUARIOS
+
+# @name listAll_accounts
+GET {{baseUrl}}/accounts
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_account
+POST {{baseUrl}}/accounts
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+	"name": "Gustavo novo teste 3",
+	"email": "teste4@hotmail.com",
+	"password": "12345236",
+	"role": "supervisor"
+}
+
+###
+
+# @name update_account
+Put {{baseUrl}}/accounts/66a6f76a-23e1-45cf-bc73-5faa04c15df0
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+	"name": "Gustavo teste Modificado Modificado",
+	"email": "teste11@hotmail.com",
+	"password": "123999999",
+	"role": "colaborador"
+}
+
+###
+
+# @name delete_account
+Delete {{baseUrl}}/accounts/66a6f76a-23e1-45cf-bc73-5faa04c15df0
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
