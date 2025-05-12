@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,11 +17,21 @@ model User {
   passwordHash String
 
   role      Role
-  sectorId  String? // Diretores não precisam de setor
+  sectorId  String?
   avatarUrl String?
 
-  //sector       Sector?  @relation(fields: [sectorId], references: [id])
-  //tickets      Ticket[] @relation("CreatedTickets")
+  sector Sector? @relation("SectorUsers", fields: [sectorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Sector {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+
+  users User[] @relation("SectorUsers")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

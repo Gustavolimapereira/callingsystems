@@ -28,23 +28,20 @@ Authorization: Bearer {{authToken}}
 
 {
 	"name": "Gustavo novo teste 3",
-	"email": "teste9@hotmail.com",
+	"email": "teste@hotmail.com",
 	"password": "12345236",
-	"role": "supervisor"
+	"role": "administrador"
 }
 
 ###
 
 # @name update_account
-Put {{baseUrl}}/accounts/a7fcb654-78a2-4efb-b83b-c778cf004f14
+Put {{baseUrl}}/accounts/b700875a-6e3a-469f-baab-23fe8ace42b9
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-	"name": "Gustavo teste Modificado Modificado",
-	"email": "teste11@hotmail.com",
-	"password": "123999999",
-	"role": "colaborador"
+	"name": "Teste"
 }
 
 ###
@@ -53,5 +50,26 @@ Authorization: Bearer {{authToken}}
 Delete {{baseUrl}}/accounts/66a6f76a-23e1-45cf-bc73-5faa04c15df0
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
+
+###
+
+### CRUD DE SETORES
+
+# @name listAll_accounts
+GET {{baseUrl}}/accounts
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name create_sector
+POST {{baseUrl}}/sectors
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+	"name": "VENDAS",
+	"description": "setor de vendas da empresa crossconection"
+}
 
 ###

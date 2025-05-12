@@ -11,7 +11,6 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
 import { extname } from 'path' // ajuste conforme seu guard
 import { UsersService } from '../users/users.service'
-import { RequestWithUser } from 'src/@types/express'
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 
 @Controller('upload-avatar')
