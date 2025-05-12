@@ -28,7 +28,7 @@ Authorization: Bearer {{authToken}}
 
 {
 	"name": "Gustavo novo teste 3",
-	"email": "teste@hotmail.com",
+	"email": "teste11@hotmail.com",
 	"password": "12345236",
 	"role": "administrador"
 }
@@ -41,7 +41,7 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-	"name": "Teste"
+	"name": "Teste 2"
 }
 
 ###

@@ -17,7 +17,7 @@ export class DeleteAccountController {
   constructor(private prisma: PrismaService) {}
 
   @Delete()
-  @HttpCode(200)
+  @HttpCode(204)
   async handle(@CurrentUser() userLoad: UserPayload, @Param('id') id: string) {
     const userLogin = await this.prisma.user.findUnique({
       where: { id: userLoad.sub },

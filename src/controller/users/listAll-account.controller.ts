@@ -32,6 +32,7 @@ export class ListAllAccountController {
         name: true,
         email: true,
         role: true,
+        sector: true,
         avatarUrl: true,
       },
     })
