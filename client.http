@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
 	"email": "teste@hotmail.com",
-	"passwordHash": "12345236"
+	"password": "12345236"
 }
 
 ### CRUD DE USUARIOS

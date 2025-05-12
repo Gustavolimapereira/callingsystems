@@ -38,7 +38,7 @@ describe('Autenticação (E2E)', () => {
       .post('/sessions')
       .send({
         email: 'teste@hotmail.com',
-        passwordHash: '12345236',
+        password: '12345236',
       })
 
     expect(responseLogin.statusCode).toBe(201)

@@ -13,7 +13,7 @@ import { z } from 'zod'
 
 const authenticateBodySchema = z.object({
   email: z.string(),
-  passwordHash: z.string(),
+  password: z.string(),
 })
 
 type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
@@ -28,7 +28,7 @@ export class AuthenticateController {
   @Post()
   @UsePipes(new ZodValidationPipe(authenticateBodySchema))
   async handle(@Body() body: AuthenticateBodySchema) {
-    const { email, passwordHash } = body
+    const { email, password } = body
 
     const user = await this.prisma.user.findUnique({
       where: {
@@ -40,7 +40,7 @@ export class AuthenticateController {
       throw new UnauthorizedException('Credenciais não encontradas.(user)')
     }
 
-    const isPasswordValid = await compare(passwordHash, user.passwordHash)
+    const isPasswordValid = await compare(password, user.passwordHash)
 
     if (!isPasswordValid) {
       throw new UnauthorizedException('Credenciais não encontradas.(password)')
