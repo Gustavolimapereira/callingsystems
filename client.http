@@ -73,3 +73,21 @@ Authorization: Bearer {{authToken}}
 }
 
 ###
+
+### UPDATE DE AVATAR
+
+###
+# @name upload_avatar
+POST {{baseUrl}}/upload-avatar
+Content-Type: multipart/form-data; boundary=boundary123
+Authorization: Bearer {{authToken}}
+
+--boundary123
+Content-Disposition: form-data; name="file"; filename="40045373.jpeg"
+Content-Type: image/jpeg
+
+< /home/gustavo/Imagens/40045373.jpeg
+--boundary123--
+
+
+###
