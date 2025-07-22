@@ -47,6 +47,10 @@ COPY package*.json ./
 # tornando-a menor e mais segura.
 RUN npm install --omit=dev
 
+# COPIA O CLIENTE PRISMA GERADO DO ESTÁGIO DE BUILDER
+# O Prisma Client é gerado em node_modules/.prisma/client. Precisamos copiá-lo para a imagem final.
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+
 # Expõe a porta em que sua aplicação NestJS irá rodar.
 # A porta padrão para aplicações NestJS é 3000.
 EXPOSE 3333
