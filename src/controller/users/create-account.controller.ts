@@ -3,9 +3,14 @@ import {
   ConflictException,
   Controller,
   HttpCode,
+  NotFoundException,
   Post,
+  UseGuards,
 } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
+import { CurrentUser } from 'src/auth/current-user-decorator'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { UserPayload } from 'src/auth/jwt.strategy'
 import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { z } from 'zod'
@@ -22,25 +27,25 @@ const bodyValidationPipe = new ZodValidationPipe(createAccountBodySchema)
 type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>
 
 @Controller('/accounts')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class CreateAccountController {
   constructor(private prisma: PrismaService) {}
 
   @Post()
   @HttpCode(201)
   async handle(
-    // @CurrentUser() userload: UserPayload,
+    @CurrentUser() userload: UserPayload,
     @Body(bodyValidationPipe) body: CreateAccountBodySchema,
   ) {
-    // const userLogin = await this.prisma.user.findUnique({
-    //   where: { id: userload.sub },
-    // })
+    const userLogin = await this.prisma.user.findUnique({
+      where: { id: userload.sub },
+    })
 
-    // console.log(userLogin, 'userLogin')
+    console.log(userLogin, 'userLogin')
 
-    // if (userLogin?.role !== 'administrador') {
-    //   throw new NotFoundException('Usuario não é um administrador do sistema')
-    // }
+    if (userLogin?.role !== 'administrador') {
+      throw new NotFoundException('Usuario não é um administrador do sistema')
+    }
 
     const { name, email, password, role } = body
 
@@ -62,7 +67,5 @@ export class CreateAccountController {
         role,
       },
     })
-
-    return { message: 'Conta criada com sucesso!' }
   }
 }
