@@ -14,13 +14,14 @@ COPY package*.json ./
 # que são necessárias para a etapa de build (ex: TypeScript, Nest CLI).
 RUN npm install
 
+# Copia o restante do código-fonte da aplicação para o diretório de trabalho.
+# ESTA LINHA FOI MOVIDA PARA CIMA para garantir que o schema do Prisma esteja presente.
+COPY . .
+
 # Se você estiver usando Prisma, é crucial gerar o cliente Prisma
 # antes de construir a aplicação.
-# Este comando deve ser executado após a instalação das dependências.
+# Este comando deve ser executado após a instalação das dependências e a cópia do código.
 RUN npx prisma generate
-
-# Copia o restante do código-fonte da aplicação para o diretório de trabalho.
-COPY . .
 
 # Executa o comando de build do NestJS.
 # Isso compila o código TypeScript para JavaScript e o coloca na pasta 'dist'.
