@@ -51,12 +51,14 @@ COPY --from=builder /app/dist ./dist
 # Esta linha foi movida para depois do 'npm install --omit=dev' para garantir que não seja sobrescrita.
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
+# COPIA A PASTA PRISMA (QUE CONTÉM O SCHEMA.PRISMA) DO ESTÁGIO DE BUILDER
+# O comando 'prisma migrate deploy' precisa do schema original para funcionar.
+COPY --from=builder /app/prisma ./prisma
+
 # Expõe a porta em que sua aplicação NestJS irá rodar.
 # A porta padrão para aplicações NestJS é 3000.
 EXPOSE 3333
 
 # Define o comando que será executado quando o contêiner for iniciado.
-# 'npm run start:prod' inicia a aplicação em modo de produção.
-# Aponta diretamente para 'dist/src/main' para o NestJS.
-# CMD ["node", "dist/src/main"]
+# 'npm run start:prod:migrate' executa as migrações e depois inicia a aplicação.
 CMD ["npm", "run", "start:prod:migrate"]
