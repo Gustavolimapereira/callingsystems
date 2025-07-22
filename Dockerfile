@@ -58,4 +58,5 @@ EXPOSE 3333
 # Define o comando que será executado quando o contêiner for iniciado.
 # 'npm run start:prod' inicia a aplicação em modo de produção.
 # Aponta diretamente para 'dist/src/main' para o NestJS.
-CMD ["node", "dist/src/main"]
+# CMD ["node", "dist/src/main"]
+CMD ["npm", "run", "start:prod:migrate"]
