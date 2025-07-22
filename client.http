@@ -8,7 +8,7 @@ POST {{baseUrl}}/sessions
 Content-Type: application/json
 
 {
-	"email": "teste@hotmail.com",
+	"email": "teste11@hotmail.com",
 	"password": "12345236"
 }
 
@@ -88,6 +88,5 @@ Content-Type: image/jpeg
 
 < /home/gustavo/Imagens/40045373.jpeg
 --boundary123--
-
 
 ###
