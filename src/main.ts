@@ -17,6 +17,6 @@ async function bootstrap() {
   })
 
   console.log('servidor rodando na porta:', port)
-  await app.listen(port)
+  await app.listen(port, '0.0.0.0')
 }
 bootstrap()
