@@ -15,7 +15,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copia o restante do código-fonte da aplicação para o diretório de trabalho.
-# ESTA LINHA FOI MOVIDA PARA CIMA para garantir que o schema do Prisma esteja presente.
+# Garante que o schema do Prisma e outros arquivos de código estejam presentes para o build.
 COPY . .
 
 # Se você estiver usando Prisma, é crucial gerar o cliente Prisma
@@ -35,27 +35,27 @@ FROM node:20-alpine AS production
 # Define o diretório de trabalho para o estágio de produção.
 WORKDIR /app
 
-# Copia apenas os arquivos compilados (da pasta 'dist') do estágio 'builder'.
-COPY --from=builder /app/dist ./dist
-
-# Copia os arquivos package.json e package-lock.json novamente.
-# Isso é necessário para instalar apenas as dependências de produção no estágio final.
+# Copia os arquivos package.json e package-lock.json.
+# Isso é necessário para instalar as dependências de produção.
 COPY package*.json ./
 
 # Instala apenas as dependências de produção.
-# '--omit=dev' garante que as dependências de desenvolvimento não sejam incluídas na imagem final,
-# tornando-a menor e mais segura.
+# '--omit=dev' garante que as dependências de desenvolvimento não sejam incluídas na imagem final.
 RUN npm install --omit=dev
+
+# Copia apenas os arquivos compilados (da pasta 'dist') do estágio 'builder'.
+COPY --from=builder /app/dist ./dist
 
 # COPIA O CLIENTE PRISMA GERADO DO ESTÁGIO DE BUILDER
 # O Prisma Client é gerado em node_modules/.prisma/client. Precisamos copiá-lo para a imagem final.
+# Esta linha foi movida para depois do 'npm install --omit=dev' para garantir que não seja sobrescrita.
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 # Expõe a porta em que sua aplicação NestJS irá rodar.
 # A porta padrão para aplicações NestJS é 3000.
-EXPOSE 3333
+EXPOSE 3000
 
 # Define o comando que será executado quando o contêiner for iniciado.
 # 'npm run start:prod' inicia a aplicação em modo de produção.
-# Alterado para 'node dist/src/main' para refletir o caminho comum de saída do NestJS.
+# Aponta diretamente para 'dist/src/main' para o NestJS.
 CMD ["node", "dist/src/main"]
