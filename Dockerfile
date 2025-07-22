@@ -53,7 +53,7 @@ COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 # Expõe a porta em que sua aplicação NestJS irá rodar.
 # A porta padrão para aplicações NestJS é 3000.
-EXPOSE 3000
+EXPOSE 3333
 
 # Define o comando que será executado quando o contêiner for iniciado.
 # 'npm run start:prod' inicia a aplicação em modo de produção.
